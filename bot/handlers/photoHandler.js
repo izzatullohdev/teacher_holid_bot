@@ -1,16 +1,11 @@
-module.exports = (bot, channelId) => {
-  bot.on("photo", async (msg) => {
-    const chatId = msg.chat.id;
-    const photo = msg.photo[msg.photo.length - 1].file_id;
-    const caption = msg.caption || "";
+module.exports = (bot, channelId, msg) => {
+  const photo = msg.photo[msg.photo.length - 1].file_id;
+  const caption = msg.caption || "";
 
-    try {
-      await bot.sendPhoto(channelId, photo, {
-        caption: caption,
-      });
-      await bot.sendMessage(chatId, "✅ Post kanalga joylandi!");
-    } catch (err) {
-      await bot.sendMessage(chatId, "❌ Xatolik: " + err.message);
-    }
-  });
+  const reklama =
+    "\n\n—\n📌 Manba: @holid27\n🎬 YouTube: youtube.com/@withholid27";
+  const fullCaption = caption + reklama;
+
+  bot.sendPhoto(channelId, photo, { caption: fullCaption });
+  bot.sendMessage(msg.chat.id, "✅ Post kanalga joylandi!");
 };

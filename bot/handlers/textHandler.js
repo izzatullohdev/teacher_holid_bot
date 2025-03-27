@@ -1,19 +1,9 @@
-module.exports = (bot, channelId) => {
-  bot.on("text", async (msg) => {
-    const chatId = msg.chat.id;
-    const text = msg.text;
+module.exports = (bot, channelId, msg) => {
+  const text = msg.text;
 
-    // Agar bu command bo‘lmasa (start, help...)
-    if (text.startsWith("/")) return;
+  const reklama = "\n\n\n\n 📌 Manba: @holid27\n";
+  const fullText = text + reklama;
 
-    const fullText =
-      text + "\n\n—\n📌 Manba: @holid27";
-
-    try {
-      await bot.sendMessage(channelId, fullText);
-      await bot.sendMessage(chatId, "✅ Matn kanalga joylandi!");
-    } catch (err) {
-      await bot.sendMessage(chatId, "❌ Xatolik: " + err.message);
-    }
-  });
+  bot.sendMessage(channelId, fullText);
+  bot.sendMessage(msg.chat.id, "✅ Matn kanalga joylandi!");
 };
